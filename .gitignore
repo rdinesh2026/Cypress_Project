@@ -1,0 +1,13 @@
+node_modules/
+cypress/videos/
+cypress/screenshots/
+cypress/downloads/
+runner-results/
+runner-details/
+allure-results/
+allure-report/
+.allure-results-merged/
+*.log
+.env
+.env.*
+!.env.example

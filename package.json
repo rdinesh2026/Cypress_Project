@@ -1,0 +1,30 @@
+{
+  "name": "saucedemo-cypress-e2e",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "cy:run:headed:chrome": "cypress run --headed --browser chrome",
+    "cy:run:headed:chrome:smoke": "cypress run --headed --browser chrome --expose grepTags=@smoke,grepFilterSpecs=true,grepOmitFiltered=true",
+    "cy:run:headed:chrome:regression": "cypress run --headed --browser chrome --expose grepTags=@regression,grepFilterSpecs=true,grepOmitFiltered=true",
+    "cy:run:parallel": "node scripts/clean-allure-results.mjs && cypress-parallel -s cy:run -d cypress/e2e -t 4 -r ./cypress/reporters/failure-details.reporter.cjs",
+    "cy:run:parallel:headed": "node scripts/clean-allure-results.mjs && cypress-parallel -s cy:run:headed:chrome -d cypress/e2e -t 4 -r ./cypress/reporters/failure-details.reporter.cjs",
+    "cy:run:parallel:smoke:headed": "node scripts/clean-allure-results.mjs && cypress-parallel -s cy:run:headed:chrome:smoke -t 4 -r ./cypress/reporters/failure-details.reporter.cjs --spec cypress/e2e/auth.cy.ts cypress/e2e/catalog.cy.ts cypress/e2e/cart.cy.ts cypress/e2e/checkout-purchase.cy.ts cypress/e2e/checkout-validation.cy.ts",
+    "cy:run:parallel:regression:headed": "node scripts/clean-allure-results.mjs && cypress-parallel -s cy:run:headed:chrome:regression -d cypress/e2e -t 4 -r ./cypress/reporters/failure-details.reporter.cjs",
+    "cy:run:smoke": "node scripts/clean-allure-results.mjs && cypress run --expose grepTags=@smoke,grepFilterSpecs=true,grepOmitFiltered=true",
+    "cy:run:regression": "node scripts/clean-allure-results.mjs && cypress run --expose grepTags=@regression,grepFilterSpecs=true,grepOmitFiltered=true",
+    "report:html": "node scripts/generate-report.mjs",
+    "report:allure": "node scripts/merge-allure-results.mjs && allure generate .allure-results-merged --clean -o allure-report",
+    "open:allure": "allure open allure-report"
+  },
+  "devDependencies": {
+    "@cypress/grep": "7.0.0",
+    "@shelex/cypress-allure-plugin": "2.41.2",
+    "@types/node": "26.6.3",
+    "allure-commandline": "2.46.1",
+    "cypress": "16.1.0",
+    "cypress-parallel": "0.15.0",
+    "typescript": "7.0.2"
+  }
+}
